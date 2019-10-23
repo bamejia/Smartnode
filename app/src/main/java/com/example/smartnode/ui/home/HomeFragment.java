@@ -4,10 +4,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -30,6 +32,17 @@ public class HomeFragment extends Fragment {
                 textView.setText(s);
             }
         });
+
+        Button sendBtn = root.findViewById(R.id.sendButton);
+        sendBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Log.i("Hello There", "Sending info");
+                Toast.makeText(getActivity().getApplicationContext(), "Hello There!", Toast.LENGTH_SHORT)
+                        .show();
+            }
+        });
+
         return root;
     }
 }
