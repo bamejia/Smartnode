@@ -43,6 +43,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "535775920259-bafj4ugo4a2bqkeb8p9lr5kvbdsqfrn5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.smartnode",
+            "certificate_hash": "3a1980b36446c645a7ed8112baf62864cbf39319"
+          }
+        },
+        {
           "client_id": "535775920259-qvugiltr5msbq3e6m74mpceih8ocofuo.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
