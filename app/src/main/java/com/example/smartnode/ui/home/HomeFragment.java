@@ -81,7 +81,7 @@ public class HomeFragment extends Fragment {
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        mDatabase.child("posts").push().addValueEventListener(tmpListener);
+//        mDatabase.child("posts").push().addValueEventListener(tmpListener);
 //        mDatabase.push().addValueEventListener(tmpListener);
 
         Button sendBtn = root.findViewById(R.id.sendButton);
