@@ -1,6 +1,7 @@
 package com.example.smartnode.ui.home;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,8 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.smartnode.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Exclude;
 import com.google.firebase.database.FirebaseDatabase;
@@ -24,6 +27,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.HashMap;
 import java.util.Map;
 
+import static androidx.constraintlayout.widget.Constraints.TAG;
+
 public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
@@ -32,7 +37,11 @@ public class HomeFragment extends Fragment {
 
     private Post p = new Post();
 
+    private String str1;
+
     private ValueEventListener tmpListener;
+
+//    private Snapshot mSnapshot;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -47,25 +56,33 @@ public class HomeFragment extends Fragment {
             }
         });
 
-//        tmpListener = new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                // Get Post object and use the values to update the UI
-//                Post post = dataSnapshot.getValue(Post.class);
-//                Toast.makeText(getActivity().getApplicationContext(), post.body, Toast.LENGTH_LONG)
+        tmpListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Get Post object and use the values to update the UI
+                str1 = dataSnapshot.getValue(Post.class).toString();
+                for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
+//                    str1 = singleSnapshot.getValue(Post.class).toString();
+//                    str1 = singleSnapshot.toString();
+                }
+//                getValue(Post.class)
+//                Toast.makeText(getActivity().getApplicationContext(), p.body, Toast.LENGTH_LONG)
 //                        .show();
-//                // ...
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//                // Getting Post failed, log a message
-//                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
-//                // ...
-//            }
-//        };
+                // ...
+            }
 
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+                // ...
+            }
+        };
+
+        mDatabase = FirebaseDatabase.getInstance().getReference("posts/");
+
+        mDatabase.child("posts").push().addValueEventListener(tmpListener);
+//        mDatabase.push().addValueEventListener(tmpListener);
 
         Button sendBtn = root.findViewById(R.id.sendButton);
         sendBtn.setOnClickListener(new View.OnClickListener() {
@@ -88,10 +105,11 @@ public class HomeFragment extends Fragment {
 //                Log.i("Hello There", "Sending info");
 
 //                p.writeNewPost("100", "bamejia", "hello", "This is a test message");
-//                mDatabase.addListenerForSingleValueEvent(tmpListener);
-
-                Toast.makeText(getActivity().getApplicationContext(), "Message Received!", Toast.LENGTH_SHORT)
+//                mDatabase.child("posts").getKey()
+                Toast.makeText(getActivity().getApplicationContext(), str1, Toast.LENGTH_LONG)
                         .show();
+//                Toast.makeText(getActivity().getApplicationContext(), "Message Received!", Toast.LENGTH_SHORT)
+//                        .show();
 
             }
         });
@@ -102,12 +120,12 @@ public class HomeFragment extends Fragment {
     @IgnoreExtraProperties
     public class Post {
 
-        private String uid;
-        private String author;
-        private String title;
-        private String body;
-        private int starCount = 0;
-        private Map<String, Boolean> stars = new HashMap<>();
+        public String uid;
+        public String author;
+        public String title;
+        public String body;
+        public int starCount = 0;
+        public Map<String, Boolean> stars = new HashMap<>();
 
         public Post() {
             // Default constructor required for calls to DataSnapshot.getValue(Post.class)
@@ -146,6 +164,9 @@ public class HomeFragment extends Fragment {
 
             mDatabase.updateChildren(childUpdates);
         }
+//        public String toString(){
+//            return uid;
+//        }
 
     }
 }
