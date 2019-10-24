@@ -60,11 +60,11 @@ public class HomeFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Get Post object and use the values to update the UI
-                str1 = dataSnapshot.getValue(Post.class).toString();
-                for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
-//                    str1 = singleSnapshot.getValue(Post.class).toString();
+//                str1 = dataSnapshot.getValue(Post.class).toString();
+//                for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
+////                    str1 = singleSnapshot.getValue(Post.class).toString();
 //                    str1 = singleSnapshot.toString();
-                }
+//                }
 //                getValue(Post.class)
 //                Toast.makeText(getActivity().getApplicationContext(), p.body, Toast.LENGTH_LONG)
 //                        .show();
@@ -79,7 +79,7 @@ public class HomeFragment extends Fragment {
             }
         };
 
-        mDatabase = FirebaseDatabase.getInstance().getReference("posts/");
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
         mDatabase.child("posts").push().addValueEventListener(tmpListener);
 //        mDatabase.push().addValueEventListener(tmpListener);
@@ -106,10 +106,10 @@ public class HomeFragment extends Fragment {
 
 //                p.writeNewPost("100", "bamejia", "hello", "This is a test message");
 //                mDatabase.child("posts").getKey()
-                Toast.makeText(getActivity().getApplicationContext(), str1, Toast.LENGTH_LONG)
-                        .show();
-//                Toast.makeText(getActivity().getApplicationContext(), "Message Received!", Toast.LENGTH_SHORT)
+//                Toast.makeText(getActivity().getApplicationContext(), str1, Toast.LENGTH_LONG)
 //                        .show();
+                Toast.makeText(getActivity().getApplicationContext(), "Can't receive yet!", Toast.LENGTH_SHORT)
+                        .show();
 
             }
         });
