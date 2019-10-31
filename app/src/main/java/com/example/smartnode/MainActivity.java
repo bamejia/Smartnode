@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
-        Toast.makeText(MainActivity.this, "Firebase connection good", Toast.LENGTH_LONG).show();
+        Toast.makeText(MainActivity.this, "Firebase connection good", Toast.LENGTH_SHORT).show();
 
     }
 

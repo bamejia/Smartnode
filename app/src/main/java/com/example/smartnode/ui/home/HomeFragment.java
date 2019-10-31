@@ -31,16 +31,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private HomeViewModel homeViewModel;
 
     private DatabaseReference mDatabase;
-
-    private Post p = new Post();
-
+    private Post pLast = new Post(); //last post on firebase
     private Post[] pList;
-
-    private int postUID = 100;
-
-    private String str1;
-
-    private ValueEventListener tmpListener;
+    private long postUID = 100;
+    private String str1;  //for testing
+    private ValueEventListener firebaseListener;
 
 //    private Snapshot mSnapshot;
 
@@ -57,17 +52,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             }
         });
 
-        tmpListener = new ValueEventListener() {
+        firebaseListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Get Post object and use the values to update the UI
-//                dataSnapshot.getValue(Post.class);
-//                str1 = dataSnapshot.getChildren().toString();
-//                str1 = dataSnapshot.toString();
                 for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
-//                    str1 = singleSnapshot.getValue(Post.class).toString();
-//                    str1 = singleSnapshot.toString();
-                    p = singleSnapshot.getValue(Post.class);
+                    pLast = singleSnapshot.getValue(Post.class);
+                    postUID = pLast.uid + 1;
                 }
             }
 
@@ -80,42 +71,17 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         };
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
-
-        mDatabase.child("posts").addValueEventListener(tmpListener);
-//        mDatabase.addValueEventListener(tmpListener);
+        mDatabase.child("posts").addValueEventListener(firebaseListener);
 
         Button newBtn = root.findViewById(R.id.newButton);
-        newBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                Log.i("Hello There", "Sending info");
-
-                p.writeNewPost(mDatabase, postUID, "bamejia", "hello", "This is a test message");
-                postUID++;
-
-                Toast.makeText(getActivity().getApplicationContext(), "Message Sent!", Toast.LENGTH_SHORT)
-                        .show();
-
-            }
-        });
-
+        Button addBtn = root.findViewById(R.id.addButton);
+        Button subBtn = root.findViewById(R.id.subtractButton);
         Button showLastBtn = root.findViewById(R.id.showLastButton);
-        showLastBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                Log.i("Hello There", "Sending info");
 
-//                p.writeNewPost("100", "bamejia", "hello", "This is a test message");
-//                mDatabase.child("posts").getKey()
-//                Toast.makeText(getActivity().getApplicationContext(), str1, Toast.LENGTH_LONG)
-//                        .show();
-                Toast.makeText(getActivity().getApplicationContext(), p.uid + ": " + p.body, Toast.LENGTH_LONG)
-                        .show();
-//                Toast.makeText(getActivity().getApplicationContext(), "Can't receive yet!", Toast.LENGTH_SHORT)
-//                        .show();
-
-            }
-        });
+        newBtn.setOnClickListener(this);
+        addBtn.setOnClickListener(this);
+        subBtn.setOnClickListener(this);
+        showLastBtn.setOnClickListener(this);
 
         return root;
     }
@@ -124,15 +90,31 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.newButton:
-                p.writeNewPost(mDatabase, postUID, "bamejia", "hello", "This is a test message");
+                pLast.writeNewPost(mDatabase, postUID, "bamejia", "Command", "New");
+                postUID++;
+
+                Toast.makeText(getActivity().getApplicationContext(), "Message Sent!", Toast.LENGTH_SHORT)
+                        .show();
+                break;
+            case R.id.addButton:
+                pLast.writeNewPost(mDatabase, postUID, "bamejia", "Command", "Add");
+                postUID++;
+
+                Toast.makeText(getActivity().getApplicationContext(), "Message Sent!", Toast.LENGTH_SHORT)
+                        .show();
+                break;
+            case R.id.subtractButton:
+                pLast.writeNewPost(mDatabase, postUID, "bamejia", "Command", "Subtract");
                 postUID++;
 
                 Toast.makeText(getActivity().getApplicationContext(), "Message Sent!", Toast.LENGTH_SHORT)
                         .show();
                 break;
             case R.id.showLastButton:
-                Toast.makeText(getActivity().getApplicationContext(), p.uid + ": " + p.body, Toast.LENGTH_LONG)
+                Toast.makeText(getActivity().getApplicationContext(), pLast.uid + ": " + pLast.body, Toast.LENGTH_LONG)
                         .show();
+                break;
+            default:
                 break;
         }
     }

@@ -10,20 +10,18 @@ import java.util.Map;
 @IgnoreExtraProperties
 public class Post {
 
-    protected String author;
-    protected String body;
-    protected int starCount = 100;
-    protected String title;
-    protected int uid;
-    protected Map<String, Boolean> stars = new HashMap<>();
-//    @Exclude
-//    public DatabaseReference mDatabase;
+    public String author;
+    public String body;
+    //    protected boolean isOn = false;
+    public String title;
+    public long uid;
+    public Map<String, Boolean> stars = new HashMap<>();
 
-    protected Post() {
+    public Post() {
         // Default constructor required for calls to DataSnapshot.getValue(Post.class)
     }
 
-    protected Post(int uid, String author, String title, String body) {
+    public Post(long uid, String author, String title, String body) {
         this.uid = uid;
         this.author = author;
         this.title = title;
@@ -31,19 +29,19 @@ public class Post {
     }
 
     @Exclude
-    protected Map<String, Object> toMap() {
+    public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
         result.put("uid", uid);
         result.put("author", author);
         result.put("title", title);
         result.put("body", body);
-        result.put("starCount", starCount);
+//        result.put("starCount", starCount);
         result.put("stars", stars);
 
         return result;
     }
 
-    protected void writeNewPost(DatabaseReference mDatabase, int userId, String username, String title, String body) {
+    public void writeNewPost(DatabaseReference mDatabase, long userId, String username, String title, String body) {
         // Create new post at /user-posts/$userid/$postid and at
         // /posts/$postid simultaneously
         String key = mDatabase.child("posts").push().getKey();
@@ -52,10 +50,24 @@ public class Post {
 
         Map<String, Object> childUpdates = new HashMap<>();
         childUpdates.put("/posts/" + key, postValues);
-//        childUpdates.put("/user-posts/" + userId + "/" + key, postValues);
+        childUpdates.put("/user-posts/" + userId + "/" + key, postValues);
 
         mDatabase.updateChildren(childUpdates);
     }
+//    protected void changeLastPost(DatabaseReference mDatabase, int userId, String username, String title, String body) {
+//        // Create new post at /user-posts/$userid/$postid and at
+//        // /posts/$postid simultaneously
+//        for(DatabaseReference lastPost : mDatabase.child("posts").getDatabase() .)
+//        String key = mDatabase.child("posts").push().getKey();
+//        Post post = new Post(userId, username, title, body);
+//        Map<String, Object> postValues = post.toMap();
+//
+//        Map<String, Object> childUpdates = new HashMap<>();
+//        childUpdates.put("/posts/" + key, postValues);
+////        childUpdates.put("/user-posts/" + userId + "/" + key, postValues);
+//
+//        mDatabase.updateChildren(childUpdates);
+//    }
 
 //    protected String toString() {
 //        return uid + body;

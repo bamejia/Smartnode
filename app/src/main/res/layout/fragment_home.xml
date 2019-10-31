@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:gravity="center|center_vertical"
-        android:text="ShowLast"
+        android:text="Show Last"
         app:layout_constraintStart_toStartOf="@id/subtractButton"
         app:layout_constraintTop_toBottomOf="@id/subtractButton"
         tools:layout_constraintWidth_percent="0" />
