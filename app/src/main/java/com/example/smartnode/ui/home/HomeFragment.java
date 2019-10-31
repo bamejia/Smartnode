@@ -19,23 +19,24 @@ import com.example.smartnode.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.Exclude;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.IgnoreExtraProperties;
 import com.google.firebase.database.ValueEventListener;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
-public class HomeFragment extends Fragment {
+//import Post.class;
+
+public class HomeFragment extends Fragment implements View.OnClickListener {
 
     private HomeViewModel homeViewModel;
 
     private DatabaseReference mDatabase;
 
     private Post p = new Post();
+
+    private Post[] pList;
+
+    private int postUID = 100;
 
     private String str1;
 
@@ -60,15 +61,14 @@ public class HomeFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Get Post object and use the values to update the UI
-//                str1 = dataSnapshot.getValue(Post.class).toString();
-//                for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
-////                    str1 = singleSnapshot.getValue(Post.class).toString();
+//                dataSnapshot.getValue(Post.class);
+//                str1 = dataSnapshot.getChildren().toString();
+//                str1 = dataSnapshot.toString();
+                for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
+//                    str1 = singleSnapshot.getValue(Post.class).toString();
 //                    str1 = singleSnapshot.toString();
-//                }
-//                getValue(Post.class)
-//                Toast.makeText(getActivity().getApplicationContext(), p.body, Toast.LENGTH_LONG)
-//                        .show();
-                // ...
+                    p = singleSnapshot.getValue(Post.class);
+                }
             }
 
             @Override
@@ -81,16 +81,17 @@ public class HomeFragment extends Fragment {
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-//        mDatabase.child("posts").push().addValueEventListener(tmpListener);
-//        mDatabase.push().addValueEventListener(tmpListener);
+        mDatabase.child("posts").addValueEventListener(tmpListener);
+//        mDatabase.addValueEventListener(tmpListener);
 
-        Button sendBtn = root.findViewById(R.id.sendButton);
-        sendBtn.setOnClickListener(new View.OnClickListener() {
+        Button newBtn = root.findViewById(R.id.newButton);
+        newBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 //                Log.i("Hello There", "Sending info");
 
-                p.writeNewPost("101", "bamejia", "hello", "This is a test message");
+                p.writeNewPost(mDatabase, postUID, "bamejia", "hello", "This is a test message");
+                postUID++;
 
                 Toast.makeText(getActivity().getApplicationContext(), "Message Sent!", Toast.LENGTH_SHORT)
                         .show();
@@ -98,8 +99,8 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        Button receiveBtn = root.findViewById(R.id.receiveButton);
-        receiveBtn.setOnClickListener(new View.OnClickListener() {
+        Button showLastBtn = root.findViewById(R.id.showLastButton);
+        showLastBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 //                Log.i("Hello There", "Sending info");
@@ -108,8 +109,10 @@ public class HomeFragment extends Fragment {
 //                mDatabase.child("posts").getKey()
 //                Toast.makeText(getActivity().getApplicationContext(), str1, Toast.LENGTH_LONG)
 //                        .show();
-                Toast.makeText(getActivity().getApplicationContext(), "Can't receive yet!", Toast.LENGTH_SHORT)
+                Toast.makeText(getActivity().getApplicationContext(), p.uid + ": " + p.body, Toast.LENGTH_LONG)
                         .show();
+//                Toast.makeText(getActivity().getApplicationContext(), "Can't receive yet!", Toast.LENGTH_SHORT)
+//                        .show();
 
             }
         });
@@ -117,56 +120,20 @@ public class HomeFragment extends Fragment {
         return root;
     }
 
-    @IgnoreExtraProperties
-    public class Post {
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.newButton:
+                p.writeNewPost(mDatabase, postUID, "bamejia", "hello", "This is a test message");
+                postUID++;
 
-        public String uid;
-        public String author;
-        public String title;
-        public String body;
-        public int starCount = 0;
-        public Map<String, Boolean> stars = new HashMap<>();
-
-        public Post() {
-            // Default constructor required for calls to DataSnapshot.getValue(Post.class)
+                Toast.makeText(getActivity().getApplicationContext(), "Message Sent!", Toast.LENGTH_SHORT)
+                        .show();
+                break;
+            case R.id.showLastButton:
+                Toast.makeText(getActivity().getApplicationContext(), p.uid + ": " + p.body, Toast.LENGTH_LONG)
+                        .show();
+                break;
         }
-
-        public Post(String uid, String author, String title, String body) {
-            this.uid = uid;
-            this.author = author;
-            this.title = title;
-            this.body = body;
-        }
-
-        @Exclude
-        public Map<String, Object> toMap() {
-            HashMap<String, Object> result = new HashMap<>();
-            result.put("uid", uid);
-            result.put("author", author);
-            result.put("title", title);
-            result.put("body", body);
-            result.put("starCount", starCount);
-            result.put("stars", stars);
-
-            return result;
-        }
-
-        private void writeNewPost(String userId, String username, String title, String body) {
-            // Create new post at /user-posts/$userid/$postid and at
-            // /posts/$postid simultaneously
-            String key = mDatabase.child("posts").push().getKey();
-            Post post = new Post(userId, username, title, body);
-            Map<String, Object> postValues = post.toMap();
-
-            Map<String, Object> childUpdates = new HashMap<>();
-            childUpdates.put("/posts/" + key, postValues);
-            childUpdates.put("/user-posts/" + userId + "/" + key, postValues);
-
-            mDatabase.updateChildren(childUpdates);
-        }
-//        public String toString(){
-//            return uid;
-//        }
-
     }
 }
