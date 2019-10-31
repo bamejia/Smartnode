@@ -71,7 +71,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         };
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("posts").addValueEventListener(firebaseListener);
+        mDatabase.child("user-posts").addValueEventListener(firebaseListener);
+//        mDatabase.child("posts").addValueEventListener(firebaseListener);
 
         Button newBtn = root.findViewById(R.id.newButton);
         Button addBtn = root.findViewById(R.id.addButton);

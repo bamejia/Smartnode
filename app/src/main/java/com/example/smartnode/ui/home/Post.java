@@ -15,7 +15,7 @@ public class Post {
     //    protected boolean isOn = false;
     public String title;
     public long uid;
-    public Map<String, Boolean> stars = new HashMap<>();
+//    public Map<String, Boolean> stars = new HashMap<>();
 
     public Post() {
         // Default constructor required for calls to DataSnapshot.getValue(Post.class)
@@ -36,7 +36,7 @@ public class Post {
         result.put("title", title);
         result.put("body", body);
 //        result.put("starCount", starCount);
-        result.put("stars", stars);
+//        result.put("stars", stars);
 
         return result;
     }
@@ -44,13 +44,14 @@ public class Post {
     public void writeNewPost(DatabaseReference mDatabase, long userId, String username, String title, String body) {
         // Create new post at /user-posts/$userid/$postid and at
         // /posts/$postid simultaneously
-        String key = mDatabase.child("posts").push().getKey();
+//        String key = mDatabase.child("posts").push().getKey();
         Post post = new Post(userId, username, title, body);
         Map<String, Object> postValues = post.toMap();
 
         Map<String, Object> childUpdates = new HashMap<>();
-        childUpdates.put("/posts/" + key, postValues);
-        childUpdates.put("/user-posts/" + userId + "/" + key, postValues);
+//        childUpdates.put("/posts/" + key, postValues);
+        childUpdates.put("/user-posts/" + userId, postValues);
+//        childUpdates.put("/user-posts/" + userId + "/" + key, postValues);
 
         mDatabase.updateChildren(childUpdates);
     }
