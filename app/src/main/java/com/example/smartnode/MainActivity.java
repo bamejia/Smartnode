@@ -1,7 +1,6 @@
 package com.example.smartnode;
 
 import android.os.Bundle;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -26,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
-        Toast.makeText(MainActivity.this, "Firebase connection good", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(MainActivity.this, "Firebase connection good", Toast.LENGTH_SHORT).show();
 
     }
 

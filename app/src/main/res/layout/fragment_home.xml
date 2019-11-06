@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/showStatus"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -14,6 +15,17 @@
         android:text="Show Last"
         app:layout_constraintStart_toStartOf="@id/subtractButton"
         app:layout_constraintTop_toBottomOf="@id/subtractButton"
+        tools:layout_constraintWidth_percent="0" />
+
+    <Button
+        android:id="@+id/showStatusButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center|center_vertical"
+        android:text="Show STatus"
+        app:layout_constraintStart_toStartOf="@id/showLastButton"
+        app:layout_constraintTop_toBottomOf="@id/showLastButton"
         tools:layout_constraintWidth_percent="0" />
 
     <TextView
@@ -34,7 +46,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="156dp"
         android:layout_marginLeft="156dp"
-        android:layout_marginTop="130dp"
+        android:layout_marginTop="100dp"
         android:text="New"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

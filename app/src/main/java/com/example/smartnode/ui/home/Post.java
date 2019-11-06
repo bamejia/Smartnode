@@ -14,14 +14,14 @@ public class Post {
     public String body;
     //    protected boolean isOn = false;
     public String title;
-    public long uid;
+    public int uid;
 //    public Map<String, Boolean> stars = new HashMap<>();
 
     public Post() {
         // Default constructor required for calls to DataSnapshot.getValue(Post.class)
     }
 
-    public Post(long uid, String author, String title, String body) {
+    public Post(int uid, String author, String title, String body) {
         this.uid = uid;
         this.author = author;
         this.title = title;
@@ -41,7 +41,8 @@ public class Post {
         return result;
     }
 
-    public void writeNewPost(DatabaseReference mDatabase, long userId, String username, String title, String body) {
+    @Exclude
+    public void writeNewPost(DatabaseReference mDatabase, int userId, String username, String title, String body) {
         // Create new post at /user-posts/$userid/$postid and at
         // /posts/$postid simultaneously
 //        String key = mDatabase.child("posts").push().getKey();
@@ -54,6 +55,27 @@ public class Post {
 //        childUpdates.put("/user-posts/" + userId + "/" + key, postValues);
 
         mDatabase.updateChildren(childUpdates);
+    }
+
+    @Exclude
+    @Override
+    public boolean equals(Object o) {
+        Post p1 = (Post) o;
+//        System.out.println("IT IS: " + body.equals(p1.body));
+//        Log.i(TAG, "IT IS USER: " + this.body.equals(p1.body));
+        if (this.author == null) {
+            return p1 == null;
+        }
+        return this.hashCode() == p1.hashCode()
+                && this.author.equals(p1.author)
+                && this.title.equals(p1.title)
+                && this.body.equals(p1.body);
+    }
+
+    @Exclude
+    @Override
+    public int hashCode() {
+        return this.uid;
     }
 //    protected void changeLastPost(DatabaseReference mDatabase, int userId, String username, String title, String body) {
 //        // Create new post at /user-posts/$userid/$postid and at
