@@ -11,7 +11,10 @@ public class Status {
 
     //initialize
     public Status() {
-
+        this.camera = null;
+        this.dataCaptured = null;
+        this.light = null;
+        this.press = null;
     }
 
     public Status(String camera, Map<String, String> dataCaptured, String light, String press) {
@@ -24,6 +27,11 @@ public class Status {
     //methods
     @Override
     public String toString() {
+        if (this.camera == null) {
+            return "No status is available";
+        } else if (this.dataCaptured == null) {
+            return "camera: " + camera + "\ndataCaptured: no data" + "\nlight: " + light + "\npress: " + press;
+        }
         return "camera: " + camera + "\ndataCaptured: " + dataCaptured + "\nlight: " + light + "\npress: " + press;
     }
 

@@ -14,15 +14,21 @@ public class Post {
     public String body;
     //    protected boolean isOn = false;
     public String title;
-    public int uid;
+    public int cid;  //command id
+    public String TAG = HomeFragment.TAGA;
 //    public Map<String, Boolean> stars = new HashMap<>();
+
 
     public Post() {
         // Default constructor required for calls to DataSnapshot.getValue(Post.class)
+        this.author = null;
+        this.body = null;
+        this.title = null;
+        this.cid = 100;
     }
 
-    public Post(int uid, String author, String title, String body) {
-        this.uid = uid;
+    public Post(int cid, String author, String title, String body) {
+        this.cid = cid;
         this.author = author;
         this.title = title;
         this.body = body;
@@ -31,7 +37,7 @@ public class Post {
     @Exclude
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
-        result.put("uid", uid);
+        result.put("cid", cid);
         result.put("author", author);
         result.put("title", title);
         result.put("body", body);
@@ -42,16 +48,16 @@ public class Post {
     }
 
     @Exclude
-    public void writeNewPost(DatabaseReference mDatabase, int userId, String username, String title, String body) {
+    public void writeNewPost(DatabaseReference mDatabase, int cid, String username, String title, String body) {
         // Create new post at /user-posts/$userid/$postid and at
         // /posts/$postid simultaneously
 //        String key = mDatabase.child("posts").push().getKey();
-        Post post = new Post(userId, username, title, body);
+        Post post = new Post(cid, username, title, body);
         Map<String, Object> postValues = post.toMap();
 
         Map<String, Object> childUpdates = new HashMap<>();
 //        childUpdates.put("/posts/" + key, postValues);
-        childUpdates.put("/user-posts/" + userId, postValues);
+        childUpdates.put("/user-posts/" + cid, postValues);
 //        childUpdates.put("/user-posts/" + userId + "/" + key, postValues);
 
         mDatabase.updateChildren(childUpdates);
@@ -61,10 +67,16 @@ public class Post {
     @Override
     public boolean equals(Object o) {
         Post p1 = (Post) o;
-//        System.out.println("IT IS: " + body.equals(p1.body));
-//        Log.i(TAG, "IT IS USER: " + this.body.equals(p1.body));
-        if (this.author == null) {
+//        Log.i(TAG, "MADE IT HERE");
+        if (this.body == null) {
             return p1 == null;
+        }
+        if (p1 == null) {
+            this.author = null;
+            this.body = null;
+            this.title = null;
+            this.cid = 100;
+            return true;
         }
         return this.hashCode() == p1.hashCode()
                 && this.author.equals(p1.author)
@@ -75,7 +87,7 @@ public class Post {
     @Exclude
     @Override
     public int hashCode() {
-        return this.uid;
+        return this.cid;
     }
 //    protected void changeLastPost(DatabaseReference mDatabase, int userId, String username, String title, String body) {
 //        // Create new post at /user-posts/$userid/$postid and at
@@ -96,5 +108,13 @@ public class Post {
 //        return uid + body;
 ////        Integer.toString(uid) + body
 //    }
+@Exclude
+@Override
+public String toString() {
+    if (this.body == null) {
+        return "No command log is available";
+    }
+    return "CID: " + this.cid + " | Command: " + this.body;
+}
 
 }

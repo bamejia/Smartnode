@@ -34,13 +34,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private DatabaseReference mDatabase;  //instance of Firebase data tree
     private Post pTmp;
     private Post[] pList;  //list of all posts by the phone app
-    private int postUID = 100;
+    public static String TAGA = TAG;
     private Status p1Status = new Status();
     private String str1;  //for testing
     private Status p1Tmp;
     //    private int count1 = 0;  //for testing
     private ValueEventListener firebaseListener;  //listens for any changes made in Firebase
     private ValueEventListener statusListener;  //Listens for current status of RaspberryPi
+    private int postCID = 100;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -61,15 +62,22 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Get Post object and use the values to update the UI
-                for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
-                    pTmp = singleSnapshot.getValue(Post.class);
+//                Log.i(TAG, "children: " + dataSnapshot.getChildrenCount());
+                if (dataSnapshot.getChildrenCount() == 0) {
+                    pTmp = null;
+                } else {
+                    for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
+                        pTmp = singleSnapshot.getValue(Post.class);
+                    }
                 }
                 if (pLast.equals(pTmp) == false) {
                     pLast = pTmp;
-                    postUID = pLast.uid + 1;
-                    Toast.makeText(context, "Last command has been updated!", Toast.LENGTH_SHORT)
-                            .show();
+                    postCID = pLast.cid + 1;
+//                    Toast.makeText(context, "Last command has been updated!", Toast.LENGTH_SHORT)
+//                            .show();
                 }
+                Toast.makeText(context, "Last command has been updated!", Toast.LENGTH_SHORT)
+                        .show();
             }
 
             @Override
@@ -85,7 +93,15 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         statusListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                p1Status = dataSnapshot.getValue(Status.class);
+//                Log.i(TAG, "children: " + dataSnapshot.getChildrenCount());
+                if (dataSnapshot.getChildrenCount() == 0) {
+                    p1Status = new Status();
+                    Log.i(TAG, "YES");
+                } else {
+                    p1Status = dataSnapshot.getValue(Status.class);
+//                    Toast.makeText(context, "Status has been updated!", Toast.LENGTH_SHORT)
+//                            .show();
+                }
                 Toast.makeText(context, "Status has been updated!", Toast.LENGTH_SHORT)
                         .show();
             }
@@ -125,7 +141,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.newButton:
-                pLast.writeNewPost(mDatabase, postUID, "bamejia", "Command", "New");
+                pLast.writeNewPost(mDatabase, postCID, "bamejia", "Command", "New");
 //                postUID = pLast.uid + 1;
 //                postUID++;
 
@@ -133,7 +149,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                         .show();
                 break;
             case R.id.addButton:
-                pLast.writeNewPost(mDatabase, postUID, "bamejia", "Command", "Add");
+                pLast.writeNewPost(mDatabase, postCID, "bamejia", "Command", "Add");
 //                postUID = pLast.uid + 1;
 //                postUID++;
 
@@ -141,7 +157,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                         .show();
                 break;
             case R.id.subtractButton:
-                pLast.writeNewPost(mDatabase, postUID, "bamejia", "Command", "Subtract");
+                pLast.writeNewPost(mDatabase, postCID, "bamejia", "Command", "Subtract");
 //                postUID = pLast.uid + 1;
 //                postUID++;
 
@@ -149,7 +165,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                         .show();
                 break;
             case R.id.showLastButton:
-                Toast.makeText(context, pLast.uid + ": " + pLast.body, Toast.LENGTH_LONG)
+                Toast.makeText(context, pLast.toString(), Toast.LENGTH_LONG)
                         .show();
                 break;
             case R.id.showStatusButton:
