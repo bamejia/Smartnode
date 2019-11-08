@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <!--    android:theme="@style/AppTheme.ShowStatusTheme">-->
+
+
+    <TextView
+        android:id="@+id/text_status"
+        android:layout_width="324sp"
+        android:layout_height="438sp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25sp"
+        android:background="#F2536DFE"
+        android:clickable="true"
+        android:focusable="true"
+        android:textSize="35sp"
+        tools:visibility="visible" />
+
+</RelativeLayout>

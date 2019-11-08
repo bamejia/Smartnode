@@ -19,9 +19,6 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".ui.home.Pop"
-            android:theme="@style/AppTheme.ShowStatusTheme"></activity>
     </application>
 
 </manifest>

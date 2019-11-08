@@ -1,11 +1,15 @@
 package com.example.smartnode.ui.home;
 
+import android.util.Log;
+
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Exclude;
 import com.google.firebase.database.IgnoreExtraProperties;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static androidx.constraintlayout.widget.Constraints.TAG;
 
 @IgnoreExtraProperties
 public class Post {
@@ -15,7 +19,7 @@ public class Post {
     //    protected boolean isOn = false;
     public String title;
     public int cid;  //command id
-    public String TAG = HomeFragment.TAGA;
+//    public String TAG = HomeFragment.TAGA;
 //    public Map<String, Boolean> stars = new HashMap<>();
 
 
@@ -67,7 +71,7 @@ public class Post {
     @Override
     public boolean equals(Object o) {
         Post p1 = (Post) o;
-//        Log.i(TAG, "MADE IT HERE");
+        Log.i(TAG, "MADE IT HERE");
         if (this.body == null) {
             return p1 == null;
         }
@@ -114,7 +118,7 @@ public String toString() {
     if (this.body == null) {
         return "No command log is available";
     }
-    return "CID: " + this.cid + " | Command: " + this.body;
+    return "CID: " + this.cid + "\nCommand: " + this.body;
 }
 
 }
