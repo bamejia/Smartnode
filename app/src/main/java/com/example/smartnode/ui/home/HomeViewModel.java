@@ -38,11 +38,6 @@ public class HomeViewModel extends ViewModel {
 
     private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss_ms", Locale.US);
 
-    //for testing
-//    private String str1;  //for testing
-//    private static Context context;
-//    private int count1 = 0;  //for testing
-
     public HomeViewModel() {
 
         //initializing observed data
@@ -51,27 +46,19 @@ public class HomeViewModel extends ViewModel {
         post_display = new MutableLiveData<>();
         status_display = new MutableLiveData<>();
 
-        pLast.setValue(new Post());
-        p1Status.setValue(new Status());
-
         //initializing Listeners
         userPostListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {  // Get Post object and use the values to update the UI
 //                Log.i(TAG, "children: " + dataSnapshot.getChildrenCount());
                 if (dataSnapshot.getChildrenCount() == 0) {
-                    pTmp = null;
+                    pLast.setValue(new Post());
                 } else {
                     for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
                         pTmp = singleSnapshot.getValue(Post.class);
                     }
-                }//else
-                if (!(pLast.getValue().equals(pTmp))) {
                     pLast.setValue(pTmp);
-//                    postCID = pLast.getValue().cid + 1;
-                } else {
-                    pLast.setValue(pLast.getValue());
-                }
+                }//else
             }//onDataChange
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -107,24 +94,21 @@ public class HomeViewModel extends ViewModel {
     public LiveData<Post> getLastPost() {
         return pLast;
     }
-
     public LiveData<Status> getStatus() {
         return p1Status;
     }
-
     public LiveData<String> getPostDisplay() {
         return post_display;
-    }
-
-    //for setting text to display
-    public void setPostDisplay(String display_text) {
-        this.post_display.setValue(display_text);
     }
 
     public LiveData<String> getStatusDisplay() {
         return status_display;
     }
 
+    //for setting text to display
+    public void setPostDisplay(String display_text) {
+        this.post_display.setValue(display_text);
+    }
     public void setStatusDisplay(String display_text) {
         this.status_display.setValue(display_text);
     }

@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -23,17 +22,25 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private static Context context;  //for displaying notifications at bottom of phone screen with "Toast.makeText"
     private HomeViewModel homeViewModel;  //all data comes from an instance of the ViewModel
 
-    //make it easier to rename buttons and commands
+    //make it easier to rename commands and message to user from string.xml
+    private String btn1Command;
+    private String btn2Command;
+    private String btn3Command;
+    private String postNotif;
+    private String statusNotif;
+    private String sendNotif;
 
-    private final String btn1Command = "New";
-    private final String btn2Command = "flash_set_ON";
-    private final String btn3Command = "flash_set_OFF";
-
-    private final String username = "bamejia";
-    private final String homeText = "Choose an Option";
+    private String username = "bamejia";
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
+        btn1Command = getString(R.string.btn1_command);
+        btn2Command = getString(R.string.btn2_command);
+        btn3Command = getString(R.string.btn3_command);
+        postNotif = getString(R.string.post_notif);
+        statusNotif = getString(R.string.status_notif);
+        sendNotif = getString(R.string.send_notif);
 
         //get a static context for displaying notifications at the bottom of the screen with Toast
         HomeFragment.context = getActivity().getApplicationContext();
@@ -45,16 +52,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         //for displaying fragment
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
-        //Display correct name for text field at the to of the page
-        final TextView mainText = root.findViewById(R.id.text_home);
-        mainText.setText(homeText);
-
         //data to watch for changes
         homeViewModel.getLastPost().observe(this, new Observer<Post>() {
             @Override
             public void onChanged(@Nullable Post post) {
                 homeViewModel.setPostDisplay(post.toString());
-                Toast.makeText(context, "Last command has been updated!", Toast.LENGTH_SHORT)
+                Toast.makeText(context, postNotif, Toast.LENGTH_SHORT)
                         .show();
             }
         });
@@ -62,7 +65,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onChanged(@Nullable Status status) {
                 homeViewModel.setStatusDisplay(status.toString());
-                Toast.makeText(context, "Status has been updated!", Toast.LENGTH_SHORT)
+                Toast.makeText(context, statusNotif, Toast.LENGTH_SHORT)
                         .show();
             }
         });
@@ -95,17 +98,17 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.button1:
                 homeViewModel.writeNewPost(username, btn1Command);
-                Toast.makeText(context, "Message Sent!", Toast.LENGTH_SHORT)
+                Toast.makeText(context, sendNotif, Toast.LENGTH_SHORT)
                         .show();
                 break;
             case R.id.button2:
                 homeViewModel.writeNewPost(username, btn2Command);
-                Toast.makeText(context, "Message Sent!", Toast.LENGTH_SHORT)
+                Toast.makeText(context, sendNotif, Toast.LENGTH_SHORT)
                         .show();
                 break;
             case R.id.button3:
                 homeViewModel.writeNewPost(username, btn3Command);
-                Toast.makeText(context, "Message Sent!", Toast.LENGTH_SHORT)
+                Toast.makeText(context, sendNotif, Toast.LENGTH_SHORT)
                         .show();
                 break;
             case R.id.button4:

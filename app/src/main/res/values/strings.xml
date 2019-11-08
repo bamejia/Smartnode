@@ -8,4 +8,11 @@
     <string name="home_button3">OFF</string>
     <string name="home_button4">Show Last</string>
     <string name="home_button5">Show Status</string>
+    <string name="home_text">Choose an Option</string>
+    <string name="btn1_command">New</string>
+    <string name="btn2_command">flash_set_ON</string>
+    <string name="btn3_command">flash_set_OFF</string>
+    <string name="post_notif">Last post has been updated!</string>
+    <string name="status_notif">Status has been updated!</string>
+    <string name="send_notif">Message Sent!</string>
 </resources>
