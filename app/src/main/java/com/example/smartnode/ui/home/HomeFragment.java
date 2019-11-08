@@ -23,6 +23,15 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private static Context context;  //for displaying notifications at bottom of phone screen with "Toast.makeText"
     private HomeViewModel homeViewModel;  //all data comes from an instance of the ViewModel
 
+    //make it easier to rename buttons and commands
+
+    private final String btn1Command = "New";
+    private final String btn2Command = "flash_set_ON";
+    private final String btn3Command = "flash_set_OFF";
+
+    private final String username = "bamejia";
+    private final String homeText = "Choose an Option";
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
@@ -38,7 +47,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
         //Display correct name for text field at the to of the page
         final TextView mainText = root.findViewById(R.id.text_home);
-        mainText.setText("OCR BOX HOME");
+        mainText.setText(homeText);
 
         //data to watch for changes
         homeViewModel.getLastPost().observe(this, new Observer<Post>() {
@@ -59,23 +68,23 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         });
 
         //set up buttons
-        Button newBtn = root.findViewById(R.id.newButton);
-        Button addBtn = root.findViewById(R.id.addButton);
-        Button subBtn = root.findViewById(R.id.subtractButton);
-        Button showLastBtn = root.findViewById(R.id.showLastButton);
-        Button showStatusBtn = root.findViewById(R.id.showStatusButton);
+        Button btn1 = root.findViewById(R.id.button1);
+        Button btn2 = root.findViewById(R.id.button2);
+        Button btn3 = root.findViewById(R.id.button3);
+        Button btn4 = root.findViewById(R.id.button4);
+        Button btn5 = root.findViewById(R.id.button5);
 
-        newBtn.setText("New");
-        addBtn.setText("Add");
-        subBtn.setText("Subtract");
-        showLastBtn.setText("Show Last");
-        showStatusBtn.setText("Show Status");
+//        btn1.setText(btn1Name);
+//        btn2.setText(btn2Name);
+//        btn3.setText(btn3Name);
+//        showLastBtn.setText(btn4Name);
+//        showStatusBtn.setText(btn5Name);
 
-        newBtn.setOnClickListener(this);
-        addBtn.setOnClickListener(this);
-        subBtn.setOnClickListener(this);
-        showLastBtn.setOnClickListener(this);
-        showStatusBtn.setOnClickListener(this);
+        btn1.setOnClickListener(this);
+        btn2.setOnClickListener(this);
+        btn3.setOnClickListener(this);
+        btn4.setOnClickListener(this);
+        btn5.setOnClickListener(this);
 
         return root;
     }//onCreateView
@@ -84,29 +93,29 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.newButton:
-                homeViewModel.writeNewPost("bamejia", "Command", "New");
+            case R.id.button1:
+                homeViewModel.writeNewPost(username, btn1Command);
                 Toast.makeText(context, "Message Sent!", Toast.LENGTH_SHORT)
                         .show();
                 break;
-            case R.id.addButton:
-                homeViewModel.writeNewPost("bamejia", "Command", "Add");
+            case R.id.button2:
+                homeViewModel.writeNewPost(username, btn2Command);
                 Toast.makeText(context, "Message Sent!", Toast.LENGTH_SHORT)
                         .show();
                 break;
-            case R.id.subtractButton:
-                homeViewModel.writeNewPost("bamejia", "Command", "Subtract");
+            case R.id.button3:
+                homeViewModel.writeNewPost(username, btn3Command);
                 Toast.makeText(context, "Message Sent!", Toast.LENGTH_SHORT)
                         .show();
                 break;
-            case R.id.showLastButton:
+            case R.id.button4:
                 PopUpFragment lastPostFrag = new PopUpFragment(homeViewModel.getPostDisplay());  //homeViewModel.getStatus().getValue()
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container, lastPostFrag)
                         .addToBackStack(null)
                         .commit();
                 break;
-            case R.id.showStatusButton:
+            case R.id.button5:
                 PopUpFragment statusFrag = new PopUpFragment(homeViewModel.getStatusDisplay());  //homeViewModel.getStatus().getValue()
                 int i = getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container, statusFrag)

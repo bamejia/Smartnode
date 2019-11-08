@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name">Smartnode</string>
-    <string name="title_home">Home</string>
+    <string name="title_home">OCR Box Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="home_button1">New</string>
+    <string name="home_button2">ON</string>
+    <string name="home_button3">OFF</string>
+    <string name="home_button4">Show Last</string>
+    <string name="home_button5">Show Status</string>
 </resources>

@@ -13,6 +13,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class HomeViewModel extends ViewModel {
@@ -31,6 +35,8 @@ public class HomeViewModel extends ViewModel {
     private Post pTmp;  //for iterating through all posts in "user-posts"
     private Status statTmp;  //for iterating through multiple Raspberry Pi status (for later on)
     private int postCID = 100;  //for keeping track of post ID's sent by phone users
+
+    private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss_ms", Locale.US);
 
     //for testing
 //    private String str1;  //for testing
@@ -62,7 +68,9 @@ public class HomeViewModel extends ViewModel {
                 }//else
                 if (!(pLast.getValue().equals(pTmp))) {
                     pLast.setValue(pTmp);
-                    postCID = pLast.getValue().cid + 1;
+//                    postCID = pLast.getValue().cid + 1;
+                } else {
+                    pLast.setValue(pLast.getValue());
                 }
             }//onDataChange
             @Override
@@ -74,7 +82,7 @@ public class HomeViewModel extends ViewModel {
         statusListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.i(TAG, "children: " + dataSnapshot.getChildrenCount());
+//                Log.i(TAG, "children: " + dataSnapshot.getChildrenCount());
                 if (dataSnapshot.getChildrenCount() == 0) {
                     p1Status.setValue(new Status());
                 } else {
@@ -90,7 +98,7 @@ public class HomeViewModel extends ViewModel {
 
         //initializing instance of Firebase data tree and listeners for changes
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("user-posts").addValueEventListener(userPostListener);
+        mDatabase.child("Log").addValueEventListener(userPostListener);
         mDatabase.child("status/Pi1").addValueEventListener(statusListener);
 
     }//HomeViewModel Constructor
@@ -122,8 +130,10 @@ public class HomeViewModel extends ViewModel {
     }
 
     //for creating a new post sent to Firebase
-    public void writeNewPost(String username, String title, String body) {
-        pLast.getValue().writeNewPost(this.mDatabase, this.postCID, username, title, body);
+    public void writeNewPost(String username, String command) {
+//        Instant instant = Instant.now();
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        pLast.getValue().writeNewPost(this.mDatabase, username, command, sdf.format(timestamp));
     }
 
 

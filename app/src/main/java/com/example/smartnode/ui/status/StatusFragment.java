@@ -32,10 +32,10 @@ public class StatusFragment extends Fragment {
 
 //        statusViewModel =
 //                ViewModelProviders.of(this).get(StatusViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_status, container, false);
+        View root = inflater.inflate(R.layout.fragment_pop_up, container, false);
 
         //text to display on pop up
-        final TextView display_text = root.findViewById(R.id.text_status);
+        final TextView display_text = root.findViewById(R.id.text_pop_up);
 //        statusViewModel.getText().observe(this, new Observer<String>() {
 //            @Override
 //            public void onChanged(@Nullable String s) {

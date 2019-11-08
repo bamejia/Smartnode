@@ -28,10 +28,10 @@ public class PopUpFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         //for displaying fragment
-        View root = inflater.inflate(R.layout.fragment_status, container, false);
+        View root = inflater.inflate(R.layout.fragment_pop_up, container, false);
 
         //text to display on pop up
-        final TextView display_text = root.findViewById(R.id.text_status);
+        final TextView display_text = root.findViewById(R.id.text_pop_up);
 
         //updates text displayed on pop up
         input_text.observe(this, new Observer<String>() {

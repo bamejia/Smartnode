@@ -15,63 +15,85 @@
     <!--        android:clickable="false"-->
     <!--        android:elevation="20sp" />-->
 
-    <Button
-        android:id="@+id/showLastButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16sp"
-        android:gravity="center|center_vertical"
-        app:layout_constraintStart_toStartOf="@id/subtractButton"
-        app:layout_constraintTop_toBottomOf="@id/subtractButton"
-        tools:layout_constraintWidth_percent="0" />
-
-    <Button
-        android:id="@+id/showStatusButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16sp"
-        android:gravity="center|center_vertical"
-        app:layout_constraintStart_toStartOf="@id/showLastButton"
-        app:layout_constraintTop_toBottomOf="@id/showLastButton"
-        tools:layout_constraintWidth_percent="0" />
-
     <TextView
         android:id="@+id/text_home"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8sp"
-        android:layout_marginEnd="8sp"
+        android:layout_marginStart="100dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="100dp"
+        android:layout_marginRight="100dp"
+        android:background="@color/colorAccent"
         android:textAlignment="center"
+        android:textColor="#FFFF"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/newButton"
+        android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="156sp"
-        android:layout_marginLeft="156sp"
-        android:layout_marginTop="100sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginStart="65dp"
+        android:layout_marginLeft="65dp"
+        android:layout_marginTop="50dp"
+        android:orientation="vertical"
+        android:text="@string/home_button1"
+        android:textColor="#FFFF"
+        app:backgroundTint="@color/colorPrimary"
+        app:layout_constraintStart_toStartOf="@+id/text_home"
+        app:layout_constraintTop_toTopOf="@id/text_home" />
 
     <Button
-        android:id="@+id/addButton"
+        android:id="@+id/button2"
+        android:text="@string/home_button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16sp"
-        app:layout_constraintLeft_toLeftOf="@id/newButton"
-        app:layout_constraintTop_toBottomOf="@id/newButton" />
+        android:textColor="#FFFF"
+        app:backgroundTint="@color/colorPrimary"
+        app:layout_constraintLeft_toLeftOf="@id/button1"
+        app:layout_constraintTop_toBottomOf="@id/button1" />
 
     <Button
-        android:id="@+id/subtractButton"
+        android:id="@+id/button3"
+        android:text="@string/home_button3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16sp"
-        app:layout_constraintStart_toStartOf="@id/addButton"
-        app:layout_constraintTop_toBottomOf="@id/addButton" />
+        android:textColor="#FFFF"
+        app:backgroundTint="@color/colorPrimary"
+        app:layout_constraintStart_toStartOf="@id/button2"
+        app:layout_constraintTop_toBottomOf="@id/button2" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16sp"
+        android:gravity="center|center_vertical"
+        android:text="@string/home_button4"
+        android:textColor="#FFFF"
+        app:backgroundTint="@color/colorPrimary"
+        app:layout_constraintStart_toStartOf="@id/button3"
+        app:layout_constraintTop_toBottomOf="@id/button3"
+        tools:layout_constraintWidth_percent="0" />
+
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16sp"
+        android:gravity="center|center_vertical"
+        android:text="@string/home_button5"
+        android:textColor="#FFFF"
+        app:backgroundTint="@color/colorPrimary"
+        app:layout_constraintStart_toStartOf="@id/button4"
+        app:layout_constraintTop_toBottomOf="@id/button4"
+        tools:layout_constraintWidth_percent="0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

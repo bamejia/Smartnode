@@ -4,6 +4,7 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimaryLight"
     android:paddingTop="?attr/actionBarSize">
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -36,7 +37,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clickable="false"
-        android:elevation="20sp"
         android:focusable="false" />
+
+    <!--    android:elevation="20sp"-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

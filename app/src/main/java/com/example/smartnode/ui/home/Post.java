@@ -2,6 +2,8 @@ package com.example.smartnode.ui.home;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Exclude;
 import com.google.firebase.database.IgnoreExtraProperties;
@@ -14,37 +16,30 @@ import static androidx.constraintlayout.widget.Constraints.TAG;
 @IgnoreExtraProperties
 public class Post {
 
-    public String author;
-    public String body;
-    //    protected boolean isOn = false;
-    public String title;
-    public int cid;  //command id
-//    public String TAG = HomeFragment.TAGA;
-//    public Map<String, Boolean> stars = new HashMap<>();
+    public String username;
+    public String command;
+    public String timestamp;  //command id
 
 
     public Post() {
         // Default constructor required for calls to DataSnapshot.getValue(Post.class)
-        this.author = null;
-        this.body = null;
-        this.title = null;
-        this.cid = 100;
+        this.username = null;
+        this.command = null;
+        this.timestamp = null;
     }
 
-    public Post(int cid, String author, String title, String body) {
-        this.cid = cid;
-        this.author = author;
-        this.title = title;
-        this.body = body;
+    public Post(String username, String command, String timestamp) {
+        this.username = username;
+        this.command = command;
+        this.timestamp = timestamp;
     }
 
     @Exclude
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
-        result.put("cid", cid);
-        result.put("author", author);
-        result.put("title", title);
-        result.put("body", body);
+        result.put("username", username);
+        result.put("command", command);
+        result.put("timestamp", timestamp);
 //        result.put("starCount", starCount);
 //        result.put("stars", stars);
 
@@ -52,17 +47,17 @@ public class Post {
     }
 
     @Exclude
-    public void writeNewPost(DatabaseReference mDatabase, int cid, String username, String title, String body) {
+    public void writeNewPost(DatabaseReference mDatabase, String username, String command, String timestamp) {
         // Create new post at /user-posts/$userid/$postid and at
         // /posts/$postid simultaneously
 //        String key = mDatabase.child("posts").push().getKey();
-        Post post = new Post(cid, username, title, body);
+//        Log.i(TAG, "IN WRITE FUNCTION");
+        Post post = new Post(username, command, timestamp);
         Map<String, Object> postValues = post.toMap();
 
         Map<String, Object> childUpdates = new HashMap<>();
-//        childUpdates.put("/posts/" + key, postValues);
-        childUpdates.put("/user-posts/" + cid, postValues);
-//        childUpdates.put("/user-posts/" + userId + "/" + key, postValues);
+        childUpdates.put("/Log/" + timestamp, postValues);  //make further divisions by day, month, year
+        childUpdates.put("/App_Commands/" + username + "/" + timestamp, postValues);
 
         mDatabase.updateChildren(childUpdates);
     }
@@ -71,54 +66,30 @@ public class Post {
     @Override
     public boolean equals(Object o) {
         Post p1 = (Post) o;
-        Log.i(TAG, "MADE IT HERE");
-        if (this.body == null) {
+//        Log.i(TAG, "MADE IT HERE");
+        if (this.command == null) {
             return p1 == null;
         }
         if (p1 == null) {
-            this.author = null;
-            this.body = null;
-            this.title = null;
-            this.cid = 100;
+            Log.i(TAG, "MADE IT HERE");
+            this.username = null;
+            this.command = null;
+            this.timestamp = null;
             return true;
         }
-        return this.hashCode() == p1.hashCode()
-                && this.author.equals(p1.author)
-                && this.title.equals(p1.title)
-                && this.body.equals(p1.body);
+        return this.username.equals(p1.username)
+                && this.command.equals(p1.command)
+                && this.timestamp.equals(p1.timestamp);
     }
 
     @Exclude
+    @NonNull
     @Override
-    public int hashCode() {
-        return this.cid;
+    public String toString() {
+        if (this.command == null) {
+            return "No command log is available";
+        }
+        return "Timestamp: " + this.timestamp + "\nCommand: " + this.command;
     }
-//    protected void changeLastPost(DatabaseReference mDatabase, int userId, String username, String title, String body) {
-//        // Create new post at /user-posts/$userid/$postid and at
-//        // /posts/$postid simultaneously
-//        for(DatabaseReference lastPost : mDatabase.child("posts").getDatabase() .)
-//        String key = mDatabase.child("posts").push().getKey();
-//        Post post = new Post(userId, username, title, body);
-//        Map<String, Object> postValues = post.toMap();
-//
-//        Map<String, Object> childUpdates = new HashMap<>();
-//        childUpdates.put("/posts/" + key, postValues);
-////        childUpdates.put("/user-posts/" + userId + "/" + key, postValues);
-//
-//        mDatabase.updateChildren(childUpdates);
-//    }
-
-//    protected String toString() {
-//        return uid + body;
-////        Integer.toString(uid) + body
-//    }
-@Exclude
-@Override
-public String toString() {
-    if (this.body == null) {
-        return "No command log is available";
-    }
-    return "CID: " + this.cid + "\nCommand: " + this.body;
-}
 
 }
