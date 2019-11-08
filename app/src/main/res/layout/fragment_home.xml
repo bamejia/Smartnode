@@ -6,95 +6,116 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!--    <FrameLayout-->
-    <!--        android:id="@+id/fragment_container"-->
-    <!--        android:name="com.example.smartnode.ui.status.StatusFragment"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="match_parent"-->
-    <!--        android:focusable="true"-->
-    <!--        android:clickable="false"-->
-    <!--        android:elevation="20sp" />-->
-
-    <TextView
-        android:id="@+id/text_home"
-        android:text="@string/home_text"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginLeft="100dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="100dp"
-        android:layout_marginRight="100dp"
-        android:background="@color/colorAccent"
-        android:textAlignment="center"
-        android:textColor="#FFFF"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="65dp"
-        android:layout_marginLeft="65dp"
-        android:layout_marginTop="50dp"
-        android:orientation="vertical"
-        android:text="@string/home_button1"
-        android:textColor="#FFFF"
-        app:backgroundTint="@color/colorPrimary"
-        app:layout_constraintStart_toStartOf="@+id/text_home"
-        app:layout_constraintTop_toTopOf="@id/text_home" />
+        <TextView
+            android:id="@+id/text_home"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50sp"
+            android:layout_marginLeft="80sp"
+            android:layout_marginTop="30sp"
+            android:layout_marginEnd="50sp"
+            android:layout_marginRight="80sp"
+            android:background="@color/colorAccent"
+            android:gravity="center"
+            android:text="@string/home_text"
+            android:textAlignment="center"
+            android:textColor="#FFFF"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/button2"
-        android:text="@string/home_button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16sp"
-        android:textColor="#FFFF"
-        app:backgroundTint="@color/colorPrimary"
-        app:layout_constraintLeft_toLeftOf="@id/button1"
-        app:layout_constraintTop_toBottomOf="@id/button1" />
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="120sp"
+            android:layout_marginTop="40sp"
+            android:layout_marginEnd="120sp"
+            android:layout_marginRight="120sp"
+            android:orientation="horizontal"
+            android:text="@string/home_button1"
+            android:textColor="#FFFF"
+            app:backgroundTint="@color/colorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/text_home" />
 
-    <Button
-        android:id="@+id/button3"
-        android:text="@string/home_button3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16sp"
-        android:textColor="#FFFF"
-        app:backgroundTint="@color/colorPrimary"
-        app:layout_constraintStart_toStartOf="@id/button2"
-        app:layout_constraintTop_toBottomOf="@id/button2" />
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="120sp"
+            android:layout_marginTop="16sp"
+            android:layout_marginEnd="120sp"
+            android:text="@string/home_button2"
+            android:textColor="#FFFF"
+            app:backgroundTint="@color/colorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/button1"
+            app:layout_constraintTop_toBottomOf="@id/button1" />
 
-    <Button
-        android:id="@+id/button4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16sp"
-        android:gravity="center|center_vertical"
-        android:text="@string/home_button4"
-        android:textColor="#FFFF"
-        app:backgroundTint="@color/colorPrimary"
-        app:layout_constraintStart_toStartOf="@id/button3"
-        app:layout_constraintTop_toBottomOf="@id/button3"
-        tools:layout_constraintWidth_percent="0" />
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="120sp"
+            android:layout_marginTop="16sp"
+            android:layout_marginEnd="120sp"
+            android:text="@string/home_button3"
+            android:textColor="#FFFF"
+            app:backgroundTint="@color/colorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/button2" />
 
-    <Button
-        android:id="@+id/button5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16sp"
-        android:gravity="center|center_vertical"
-        android:text="@string/home_button5"
-        android:textColor="#FFFF"
-        app:backgroundTint="@color/colorPrimary"
-        app:layout_constraintStart_toStartOf="@id/button4"
-        app:layout_constraintTop_toBottomOf="@id/button4"
-        tools:layout_constraintWidth_percent="0" />
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="120sp"
+            android:layout_marginTop="16sp"
+            android:layout_marginEnd="120sp"
+            android:gravity="center|center_vertical"
+            android:text="@string/home_button4"
+            android:textColor="#FFFF"
+            app:backgroundTint="@color/colorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/button3"
+            app:layout_constraintTop_toBottomOf="@id/button3"
+            tools:layout_constraintWidth_percent="0" />
+
+        <Button
+            android:id="@+id/button5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="120sp"
+            android:layout_marginTop="16sp"
+            android:layout_marginEnd="120sp"
+            android:gravity="center|center_vertical"
+            android:text="@string/home_button5"
+            android:textColor="#FFFF"
+            app:backgroundTint="@color/colorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/button4"
+            app:layout_constraintTop_toBottomOf="@id/button4"
+            tools:layout_constraintWidth_percent="0" />
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:name="com.example.smartnode.ui.status.StatusFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="false"
+        android:focusable="false"
+        tools:layout_editor_absoluteY="416dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
