@@ -39,8 +39,6 @@ public class HomeViewModel extends ViewModel {
 
     public HomeViewModel() {
 
-//        HomeViewModel.context = AndroidViewModel.getApplicationContext();
-
         //initializing observed data
         pLast = new MutableLiveData<>();
         p1Status = new MutableLiveData();
@@ -61,18 +59,17 @@ public class HomeViewModel extends ViewModel {
                     for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
                         pTmp = singleSnapshot.getValue(Post.class);
                     }
-                }
+                }//else
                 if (!(pLast.getValue().equals(pTmp))) {
                     pLast.setValue(pTmp);
                     postCID = pLast.getValue().cid + 1;
                 }
-            }
-
+            }//onDataChange
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 // Getting Post failed, log a message
                 Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
-            }
+            }//onCancelled
         };//userPostListener
         statusListener = new ValueEventListener() {
             @Override
@@ -80,17 +77,15 @@ public class HomeViewModel extends ViewModel {
                 Log.i(TAG, "children: " + dataSnapshot.getChildrenCount());
                 if (dataSnapshot.getChildrenCount() == 0) {
                     p1Status.setValue(new Status());
-//                    Log.i(TAG, "YES");
                 } else {
                     p1Status.setValue(dataSnapshot.getValue(Status.class));
                 }
-            }
-
+            }//onDataChange
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 // Getting Post failed, log a message
                 Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
-            }
+            }//onCancelled
         };//statusListener
 
         //initializing instance of Firebase data tree and listeners for changes

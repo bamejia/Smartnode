@@ -10,7 +10,7 @@ public class StatusViewModel extends ViewModel {
 
     public StatusViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("STUFF");
+        mText.setValue("");
     }
 
     public LiveData<String> getText() {

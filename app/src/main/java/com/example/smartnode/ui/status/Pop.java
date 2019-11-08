@@ -1,4 +1,4 @@
-package com.example.smartnode.ui.home;
+package com.example.smartnode.ui.status;
 
 import android.app.Activity;
 import android.os.Bundle;

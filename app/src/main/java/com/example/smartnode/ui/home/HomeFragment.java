@@ -16,7 +16,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.smartnode.R;
-import com.example.smartnode.ui.status.StatusFragment;
+import com.example.smartnode.ui.pop_up.PopUpFragment;
 
 public class HomeFragment extends Fragment implements View.OnClickListener {
 
@@ -32,13 +32,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         //get instance of ViewModel from which to get data from
         homeViewModel =
                 ViewModelProviders.of(this).get(HomeViewModel.class);
+
+        //for displaying fragment
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
-        //Display correct name for each buttons and text field
+        //Display correct name for text field at the to of the page
         final TextView mainText = root.findViewById(R.id.text_home);
-        final TextView newButtonText = root.findViewById(R.id.newButton);
         mainText.setText("OCR BOX HOME");
-        newButtonText.setText("New");
 
         //data to watch for changes
         homeViewModel.getLastPost().observe(this, new Observer<Post>() {
@@ -65,6 +65,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         Button showLastBtn = root.findViewById(R.id.showLastButton);
         Button showStatusBtn = root.findViewById(R.id.showStatusButton);
 
+        newBtn.setText("New");
+        addBtn.setText("Add");
+        subBtn.setText("Subtract");
+        showLastBtn.setText("Show Last");
+        showStatusBtn.setText("Show Status");
+
         newBtn.setOnClickListener(this);
         addBtn.setOnClickListener(this);
         subBtn.setOnClickListener(this);
@@ -72,7 +78,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         showStatusBtn.setOnClickListener(this);
 
         return root;
-    }
+    }//onCreateView
 
     //what to do when each button is pressed
     @Override
@@ -94,23 +100,19 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                         .show();
                 break;
             case R.id.showLastButton:
-                StatusFragment lastPostFrag = new StatusFragment(homeViewModel.getPostDisplay());  //homeViewModel.getStatus().getValue()
+                PopUpFragment lastPostFrag = new PopUpFragment(homeViewModel.getPostDisplay());  //homeViewModel.getStatus().getValue()
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container, lastPostFrag)
                         .addToBackStack(null)
                         .commit();
-//                Toast.makeText(context, homeViewModel.getLastPost().getValue().toString(), Toast.LENGTH_LONG)
-//                        .show();   //homeViewModel.getLastPost().getValue()
                 break;
             case R.id.showStatusButton:
-                StatusFragment statusFrag = new StatusFragment(homeViewModel.getStatusDisplay());  //homeViewModel.getStatus().getValue()
-                getActivity().getSupportFragmentManager().beginTransaction()
+                PopUpFragment statusFrag = new PopUpFragment(homeViewModel.getStatusDisplay());  //homeViewModel.getStatus().getValue()
+                int i = getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container, statusFrag)
                         .addToBackStack(null)
                         .commit();
 //                Log.i(TAG, "" + i);
-//                Toast.makeText(context, p1Status.toString(), Toast.LENGTH_LONG)
-//                        .show();
                 break;
             default:
                 break;
