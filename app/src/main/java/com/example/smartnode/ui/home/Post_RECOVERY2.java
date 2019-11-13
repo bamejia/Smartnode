@@ -10,21 +10,21 @@ import java.util.HashMap;
 import java.util.Map;
 
 @IgnoreExtraProperties
-public class Post {
+public class Post_RECOVERY2 {
 
     public String username;
     public String command;
     public String timestamp;  //command id
 
 
-    public Post() {
+    public Post_RECOVERY2() {
         // Default constructor required for calls to DataSnapshot.getValue(Post.class)
         this.username = null;
         this.command = null;
         this.timestamp = null;
     }
 
-    public Post(String username, String command, String timestamp) {
+    public Post_RECOVERY2(String username, String command, String timestamp) {
         this.username = username;
         this.command = command;
         this.timestamp = timestamp;
@@ -48,7 +48,7 @@ public class Post {
         // /posts/$postid simultaneously
 //        String key = mDatabase.child("posts").push().getKey();
 //        Log.i(TAG, "IN WRITE FUNCTION");
-        Post post = new Post(username, command, timestamp);
+        Post_RECOVERY2 post = new Post_RECOVERY2(username, command, timestamp);
         Map<String, Object> postValues = post.toMap();
 
         Map<String, Object> childUpdates = new HashMap<>();
@@ -67,10 +67,20 @@ public class Post {
             return true;
         }
 //        Log.i(TAG, "MADE IT HERE");
-        Post p1 = (Post) o;
+        Post_RECOVERY2 p1 = (Post_RECOVERY2) o;
         if (this.command == null) {
-            return false;
+            return p1 == null;
         }
+//        if (this.command == null) {
+//            return p1 == null;
+//        }
+//        if (p1 == null) {
+////            Log.i(TAG, "MADE IT HERE");
+//            this.username = null;
+//            this.command = null;
+//            this.timestamp = null;
+//            return true;
+//        }
         return this.username.equals(p1.username)
                 && this.command.equals(p1.command)
                 && this.timestamp.equals(p1.timestamp);

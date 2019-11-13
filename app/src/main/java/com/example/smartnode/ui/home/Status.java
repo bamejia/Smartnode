@@ -1,38 +1,37 @@
 package com.example.smartnode.ui.home;
 
+import androidx.annotation.NonNull;
+
 import java.util.Map;
 
 public class Status {
 
-    public String camera;
-    public Map<String, String> dataCaptured;
-    public String light;
-    public String press;
+    public Map<String, String> light;
+    public Map<String, String> ocr_sampling;
 
     //initialize
     public Status() {
-        this.camera = null;
-        this.dataCaptured = null;
         this.light = null;
-        this.press = null;
+        this.ocr_sampling = null;
     }
 
-    public Status(String camera, Map<String, String> dataCaptured, String light, String press) {
-        this.camera = camera;
-        this.dataCaptured = dataCaptured;
+    public Status(Map<String, String> light, Map<String, String> ocr_sampling) {
         this.light = light;
-        this.press = press;
+        this.ocr_sampling = ocr_sampling;
     }
 
     //methods
     @Override
+    @NonNull
     public String toString() {
-        if (this.camera == null) {
+        if (this.light == null) {
             return "No status is available";
-        } else if (this.dataCaptured == null) {
-            return "camera: " + camera + "\ndataCaptured: no data" + "\nlight: " + light + "\npress: " + press;
         }
-        return "camera: " + camera + "\ndataCaptured: " + dataCaptured + "\nlight: " + light + "\npress: " + press;
+//        else if (this.dataCaptured == null) {
+//            return "camera: " + camera + "\ndataCaptured: no data" + "\nlight: " + light + "\npress: " + press;
+//        }
+        return "light:\n    status: " + light.get("status") + "\n    last modified by: " + light.get("username") + "\n    date modified on: " + light.get("timestamp")
+                + "\n\nocr sampling:\n    status: " + ocr_sampling.get("status") + "\n    last modified by: " + ocr_sampling.get("username") + "\n    date modified on: " + ocr_sampling.get("timestamp");
     }
 
 }

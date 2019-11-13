@@ -42,14 +42,17 @@ public class HomeViewModel extends ViewModel {
 
         //initializing observed data
         pLast = new MutableLiveData<>();
-        p1Status = new MutableLiveData();
+        p1Status = new MutableLiveData<>();
         post_display = new MutableLiveData<>();
         status_display = new MutableLiveData<>();
+
+//        pLast.setValue(new Post());
+//        p1Status.setValue(new Status());
 
         //initializing Listeners
         userPostListener = new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {  // Get Post object and use the values to update the UI
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {  // Get Post object and use the values to update the UI
 //                Log.i(TAG, "children: " + dataSnapshot.getChildrenCount());
                 if (dataSnapshot.getChildrenCount() == 0) {
                     pLast.setValue(new Post());
@@ -57,18 +60,19 @@ public class HomeViewModel extends ViewModel {
                     for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
                         pTmp = singleSnapshot.getValue(Post.class);
                     }
+//                    if(!pLast.equals(pTmp))
                     pLast.setValue(pTmp);
                 }//else
             }//onDataChange
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
                 // Getting Post failed, log a message
                 Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
             }//onCancelled
         };//userPostListener
         statusListener = new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 //                Log.i(TAG, "children: " + dataSnapshot.getChildrenCount());
                 if (dataSnapshot.getChildrenCount() == 0) {
                     p1Status.setValue(new Status());
@@ -85,8 +89,8 @@ public class HomeViewModel extends ViewModel {
 
         //initializing instance of Firebase data tree and listeners for changes
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("Log").addValueEventListener(userPostListener);
-        mDatabase.child("status/Pi1").addValueEventListener(statusListener);
+        mDatabase.child("command_log").addValueEventListener(userPostListener);
+        mDatabase.child("pi_status").addValueEventListener(statusListener);
 
     }//HomeViewModel Constructor
 
