@@ -54,7 +54,7 @@ public class Post {
         Map<String, Object> childUpdates = new HashMap<>();
         childUpdates.put("/command_log/" + timestamp, postValues);  //make further divisions by day, month, year
         childUpdates.put("/recent_commands/" + timestamp, postValues);
-        childUpdates.put("/commands_to_pi/" + timestamp, postValues);
+//        childUpdates.put("/commands_to_pi/" + timestamp, postValues);
 //        childUpdates.put("/recent_commands/" + username + "/" + timestamp, postValues);
 
         mDatabase.updateChildren(childUpdates);

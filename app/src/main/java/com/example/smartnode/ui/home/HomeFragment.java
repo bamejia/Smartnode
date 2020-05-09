@@ -23,9 +23,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private HomeViewModel homeViewModel;  //all data comes from an instance of the ViewModel
 
     //make it easier to rename commands and message to user from string.xml
-    private String btn1Command;
-    private String btn2Command;
-    private String btn3Command;
+    private String btnOcrOnOffCommand;
+    private String btnAudioOnOffCommand;
+    private String btnOcrOnCommand;
+    private String btnOcrOffCommand;
+    private String btnOcrOnceCommand;
+    private String btnFlashOnCommand;
+    private String btnFlashOffCommand;
+    private String btnPressCommand;
     private String postNotif;
     private String statusNotif;
     private String sendNotif;
@@ -35,9 +40,15 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        btn1Command = getString(R.string.btn1_command);
-        btn2Command = getString(R.string.btn2_command);
-        btn3Command = getString(R.string.btn3_command);
+        btnOcrOnOffCommand = getString(R.string.btn_ocr_on_off);
+        btnAudioOnOffCommand = getString(R.string.btn_audio_on_off);
+
+        btnOcrOnCommand = getString(R.string.btn_ocr_on_command);
+        btnOcrOffCommand = getString(R.string.btn_ocr_off_command);
+        btnOcrOnceCommand = getString(R.string.btn_ocr_once_command);
+        btnFlashOnCommand = getString(R.string.btn_flash_on_command);
+        btnFlashOffCommand = getString(R.string.btn_flash_off_command);
+        btnPressCommand = getString(R.string.btn_press);
         postNotif = getString(R.string.post_notif);
         statusNotif = getString(R.string.status_notif);
         sendNotif = getString(R.string.send_notif);
@@ -71,11 +82,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         });
 
         //set up buttons
-        Button btn1 = root.findViewById(R.id.button1);
-        Button btn2 = root.findViewById(R.id.button2);
-        Button btn3 = root.findViewById(R.id.button3);
-        Button btn4 = root.findViewById(R.id.button4);
-        Button btn5 = root.findViewById(R.id.button5);
+        Button btnOcrOnOff = root.findViewById(R.id.button_ocr_on_off);
+        Button btnAudioOnOFF = root.findViewById(R.id.button_audio_on_off);
+        Button btnOcrOff = root.findViewById(R.id.button_ocr_off);
+        Button btnLightOn = root.findViewById(R.id.button_light_on);
+        Button btnLightOff = root.findViewById(R.id.button_light_off);
+        Button btnLast = root.findViewById(R.id.button_show_last);
+        Button btnStatus = root.findViewById(R.id.button_show_status);
+        Button btnPress = root.findViewById(R.id.button_press);
 
 //        btn1.setText(btn1Name);
 //        btn2.setText(btn2Name);
@@ -83,11 +97,15 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 //        showLastBtn.setText(btn4Name);
 //        showStatusBtn.setText(btn5Name);
 
-        btn1.setOnClickListener(this);
-        btn2.setOnClickListener(this);
-        btn3.setOnClickListener(this);
-        btn4.setOnClickListener(this);
-        btn5.setOnClickListener(this);
+        btnOcrOnOff.setOnClickListener(this);
+        btnAudioOnOFF.setOnClickListener(this);
+        btnOcrOff.setOnClickListener(this);
+        btnOcrOff.setOnClickListener(this);
+        btnLightOn.setOnClickListener(this);
+        btnLightOff.setOnClickListener(this);
+        btnLast.setOnClickListener(this);
+        btnStatus.setOnClickListener(this);
+        btnPress.setOnClickListener(this);
 
         return root;
     }//onCreateView
@@ -96,29 +114,44 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.button1:
-                homeViewModel.writeNewPost(username, btn1Command);
+            case R.id.button_ocr_on_off:
+                homeViewModel.writeNewPost(username, btnOcrOnOffCommand);
                 Toast.makeText(context, sendNotif, Toast.LENGTH_SHORT)
                         .show();
                 break;
-            case R.id.button2:
-                homeViewModel.writeNewPost(username, btn2Command);
+            case R.id.button_audio_on_off:
+                homeViewModel.writeNewPost(username, btnAudioOnOffCommand);
                 Toast.makeText(context, sendNotif, Toast.LENGTH_SHORT)
                         .show();
                 break;
-            case R.id.button3:
-                homeViewModel.writeNewPost(username, btn3Command);
+            case R.id.button_ocr_off:
+                homeViewModel.writeNewPost(username, btnOcrOffCommand);
                 Toast.makeText(context, sendNotif, Toast.LENGTH_SHORT)
                         .show();
                 break;
-            case R.id.button4:
+            case R.id.button_light_on:
+                homeViewModel.writeNewPost(username, btnFlashOnCommand);
+                Toast.makeText(context, sendNotif, Toast.LENGTH_SHORT)
+                        .show();
+                break;
+            case R.id.button_light_off:
+                homeViewModel.writeNewPost(username, btnFlashOffCommand);
+                Toast.makeText(context, sendNotif, Toast.LENGTH_SHORT)
+                        .show();
+                break;
+            case R.id.button_press:
+                homeViewModel.writeNewPost(username, btnPressCommand);
+                Toast.makeText(context, sendNotif, Toast.LENGTH_SHORT)
+                        .show();
+                break;
+            case R.id.button_show_last:
                 PopUpFragment lastPostFrag = new PopUpFragment(homeViewModel.getPostDisplay());  //homeViewModel.getStatus().getValue()
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container, lastPostFrag)
                         .addToBackStack(null)
                         .commit();
                 break;
-            case R.id.button5:
+            case R.id.button_show_status:
                 PopUpFragment statusFrag = new PopUpFragment(homeViewModel.getStatusDisplay());  //homeViewModel.getStatus().getValue()
                 int i = getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container, statusFrag)

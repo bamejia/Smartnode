@@ -2,36 +2,33 @@ package com.example.smartnode.ui.home;
 
 import androidx.annotation.NonNull;
 
-import java.util.Map;
-
 public class Status {
 
-    public Map<String, String> light;
-    public Map<String, String> ocr_sampling;
+    public String light_;
+    public String ocrString;
 
     //initialize
     public Status() {
-        this.light = null;
-        this.ocr_sampling = null;
+        this.light_ = null;
+        this.ocrString = null;
     }
 
-    public Status(Map<String, String> light, Map<String, String> ocr_sampling) {
-        this.light = light;
-        this.ocr_sampling = ocr_sampling;
+    public Status(String light, String ocrString) {
+        this.light_ = light;
+        this.ocrString = ocrString;
     }
 
     //methods
     @Override
     @NonNull
     public String toString() {
-        if (this.light == null) {
+        if (this.light_ == null) {
             return "No status is available";
         }
 //        else if (this.dataCaptured == null) {
 //            return "camera: " + camera + "\ndataCaptured: no data" + "\nlight: " + light + "\npress: " + press;
 //        }
-        return "light:\n    status: " + light.get("status") + "\n    last modified by: " + light.get("username") + "\n    date modified on: " + light.get("timestamp")
-                + "\n\nocr sampling:\n    status: " + ocr_sampling.get("status") + "\n    last modified by: " + ocr_sampling.get("username") + "\n    date modified on: " + ocr_sampling.get("timestamp");
+        return "light: " + light_ + "\nocr string: " + ocrString;
     }
 
 }

@@ -3,18 +3,32 @@
     <string name="title_home">OCR Box Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
-    <string name="home_button1">New</string>
-    <string name="home_button2">ON</string>
-    <string name="home_button3">OFF</string>
-    <string name="home_button4">Show Last</string>
-    <string name="home_button5">Show Status</string>
+
+    <string name="home_button_ocr_on_off">OCR</string>
+    <string name="home_button_audio_on_off">Audio</string>
+
+    <string name="home_button_ocr_on">OCR ON</string>
+    <string name="home_button_ocr_off">OCR OFF</string>
+    <string name="home_button_ocr_sample_once">Ocr</string>
+    <string name="home_button_light_on">Light ON</string>
+    <string name="home_button_light_off">Light OFF</string>
+    <string name="home_button_press">Press</string>
+    <string name="home_button_show_last">Show Last</string>
+    <string name="home_button_show_status">Show Status</string>
     <string name="home_text">Choose an Option</string>
-    <string name="btn1_command">New</string>
-    <string name="btn2_command">flash_set_ON</string>
-    <string name="btn3_command">flash_set_OFF</string>
+
+    <string name="btn_ocr_on_off">ocr_on_off</string>
+    <string name="btn_audio_on_off">audio_on_off</string>
+
+    <string name="btn_ocr_once_command">ocr_sample</string>
+    <string name="btn_ocr_on_command">ocr_sampling_ON</string>
+    <string name="btn_ocr_off_command">ocr_sampling_OFF</string>
+    <string name="btn_flash_on_command">light_ON</string>
+    <string name="btn_flash_off_command">light_OFF</string>
+    <string name="btn_press">press</string>
     <string name="post_notif">Last post has been updated!</string>
     <string name="status_notif">Status has been updated!</string>
-    <string name="send_notif">Message Sent!</string>
+    <string name="send_notif">Command Sent!</string>
     <!-- Facebook application ID and custom URL scheme (app ID prefixed by 'fb'). -->
     <string name="facebook_application_id" translatable="false">YOUR_APP_ID</string>
     <string name="facebook_login_protocol_scheme" translatable="false">fbYOUR_APP_ID</string>
