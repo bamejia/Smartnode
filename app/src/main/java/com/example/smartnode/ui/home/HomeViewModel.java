@@ -90,7 +90,7 @@ public class HomeViewModel extends ViewModel {
         //initializing instance of Firebase data tree and listeners for changes
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("command_log").addValueEventListener(userPostListener);
-        mDatabase.child("pi_status").addValueEventListener(statusListener);
+        mDatabase.child("pi_test_status").addValueEventListener(statusListener);
 
     }//HomeViewModel Constructor
 
