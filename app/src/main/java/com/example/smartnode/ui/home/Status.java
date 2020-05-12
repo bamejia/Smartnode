@@ -1,14 +1,20 @@
 package com.example.smartnode.ui.home;
 
 import android.annotation.SuppressLint;
+import android.os.Build;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.Map;
+
+import static java.util.Map.Entry.comparingByKey;
+import static java.util.stream.Collectors.toMap;
 
 public class Status {
 
@@ -30,6 +36,7 @@ public class Status {
     }
 
     //methods
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     @NonNull
     public String toString() {
@@ -91,13 +98,17 @@ public class Status {
         return output;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void buildDataSetString(Map input_dataset_val, StringBuilder
             dataset_string, String choice) {
         if (choice.equals("ocr")) {
             if (input_dataset_val == null) {
                 dataset_string.append("\n\t\t\t\t\t\t\t\tNo Data");
             } else {
-                Map<String, Map<String, String>> dataset_val = (Map<String, Map<String, String>>) input_dataset_val;
+                Map<String, Map<String, String>> tmp_val = (Map<String, Map<String, String>>) input_dataset_val;
+                Map<String, Map<String, String>> dataset_val = tmp_val.entrySet().stream().sorted(comparingByKey()).collect(toMap(e -> e.getKey(), e -> e.getValue(), (e1, e2) -> e2, LinkedHashMap::new));
+
+
                 for (Map.Entry<String, Map<String, String>> entry : dataset_val.entrySet()) {
                     dataset_string.append("\n\t\t\t\t\t\t\t\t").append(entry.getValue().get("name")).append(": ")
                             .append(reformatDate(entry.getValue().get("text")));
