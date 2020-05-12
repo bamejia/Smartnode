@@ -23,7 +23,7 @@ public class Status {
         this.ocr_status = null;
     }
 
-    public Status(Map<String, Object> audio_status, Map<String, Object> finger_status, Map<String, Object> ocr_status) {
+    public Status(Map<String, Object> ocr_status, Map<String, Object> audio_status, Map<String, Object> finger_status) {
         this.audio_status = audio_status;
         this.finger_status = finger_status;
         this.ocr_status = ocr_status;
@@ -109,8 +109,13 @@ public class Status {
             } else {
                 Map<String, String> dataset_val = (Map<String, String>) input_dataset_val;
                 for (Map.Entry<String, String> entry : dataset_val.entrySet()) {
-                    dataset_string.append("\n\t\t\t\t\t\t\t\t").append("time detected").append(":\n\t\t\t\t\t\t\t\t\t\t\t\t")
-                            .append(reformatDate(entry.getValue()));
+                    dataset_string.append("\n\t\t\t\t\t\t\t\t").append("time detected").append(":\n\t\t\t\t\t\t\t\t\t\t\t\t");
+                    String date = entry.getValue();
+                    if (date.equals("not detected")) {
+                        dataset_string.append("Not Detected");
+                    } else {
+                        dataset_string.append(reformatDate(date));
+                    }
                 }
             }
         }

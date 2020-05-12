@@ -77,6 +77,13 @@ public class HomeViewModel extends ViewModel {
                 if (dataSnapshot.getChildrenCount() == 0) {
                     p1Status.setValue(new Status());
                 } else {
+                    dataSnapshot.getRef().orderByKey();
+//                    LinkedHashMap<String, Object> tmpStatus = (LinkedHashMap<String, Object>) dataSnapshot.getValue();
+//                    LinkedHashMap<String, Object> tmpOCRStatus = (LinkedHashMap<String, Object>)tmpStatus.get("ocr_status");
+//                    LinkedHashMap<String, Object> tmpAudioStatus = (LinkedHashMap<String, Object>)tmpStatus.get("audio_status");
+//                    LinkedHashMap<String, Object> tmpFingerStatus = (LinkedHashMap<String, Object>)tmpStatus.get("finger_status");
+//                    p1Status.setValue(new Status(tmpOCRStatus, tmpAudioStatus, tmpFingerStatus));
+//                    p1Status.setValue(new Status());
                     p1Status.setValue(dataSnapshot.getValue(Status.class));
                 }
             }//onDataChange
