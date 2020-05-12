@@ -66,7 +66,8 @@ public class Status {
                 .append(audio_run_mode_val).append("\n\t\t\t\taudio data:").append(audio_dataset_string);
 
 
-        return ocr_display + "\n\n" + audio_display + "\n\n" + finger_display;
+        return ocr_display + "\n\n" + audio_display;
+//        return ocr_display + "\n\n" + audio_display + "\n\n" + finger_display;
     }
 
     private String reformatDate(String input_date) {
