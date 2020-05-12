@@ -16,7 +16,7 @@
         android:clickable="true"
         android:focusable="true"
         android:textColor="#FFFFFF"
-        android:textSize="20sp"
+        android:textSize="14sp"
         tools:visibility="visible" />
 
 </RelativeLayout>
