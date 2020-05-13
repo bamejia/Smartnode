@@ -11,6 +11,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedHashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import static java.util.Map.Entry.comparingByKey;
@@ -58,7 +59,7 @@ public class Status {
         buildDataSetString(ocr_dataset_val, ocr_dataset_string, "ocr");
 
         ocr_display.append("\n\t\t\t\trunning: ").append(ocr_running_val).append("\n\t\t\t\trun mode: ")
-                .append(ocr_run_mode_val).append("\n\t\t\t\taudio data:").append(ocr_dataset_string);
+                .append(ocr_run_mode_val).append("\n\t\t\t\tocr data:").append(ocr_dataset_string);
 
 
         // Getting Audio Values
@@ -80,10 +81,10 @@ public class Status {
     private String reformatDate(String input_date) {
         //Format of the date defined in the input String
         @SuppressLint("SimpleDateFormat") DateFormat df =
-                new SimpleDateFormat("yyyy_MM_dd__hh_mm_ss__ms");
+                new SimpleDateFormat("yyyy_MM_dd__HH_mm_ss__", Locale.US);
         //Desired format: 24 hour format: Change the pattern as per the need
         @SuppressLint("SimpleDateFormat") DateFormat outputformat =
-                new SimpleDateFormat("MM-dd-yyyy hh:mm:ss aa");
+                new SimpleDateFormat("MM-dd-yyyy hh:mm:ss aa", Locale.US);
         Date date = null;
         String output = null;
         try {
@@ -110,8 +111,9 @@ public class Status {
 
 
                 for (Map.Entry<String, Map<String, String>> entry : dataset_val.entrySet()) {
-                    dataset_string.append("\n\t\t\t\t\t\t\t\t").append(entry.getValue().get("name")).append(": ")
-                            .append(reformatDate(entry.getValue().get("text")));
+                    Map<String, String> tmp_crop_obj = entry.getValue();
+                    dataset_string.append("\n\t\t\t\t\t\t\t\t").append(tmp_crop_obj.get("name")).append(": ")
+                            .append(tmp_crop_obj.get("text"));
                 }
             }
         } else if (choice.equals("audio")) {
